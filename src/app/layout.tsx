@@ -21,11 +21,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${karla.variable} antialiased dark`}
+        className={`${karla.variable} antialiased dark bg-neutral-950`}
       >
         <Providers>
           <Navbar />
-          {children}
+          <main className="my-20">{children}</main>
           <Footer />
         </Providers>
       </body>
