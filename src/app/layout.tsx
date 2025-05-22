@@ -5,6 +5,7 @@ import "./globals.css";
 import Navbar from "@/components/shared/navbar";
 import Footer from "@/components/shared/footer";
 import { FilterProvider } from "@/contexts/filter-context";
+import { ModalProvider } from "@/contexts/modal-context";
 
 const karla = Karla({
   subsets: ["latin"],
@@ -30,13 +31,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={karla.className}>
       <body className="antialiased dark bg-neutral-950">
-        <FilterProvider>
-          <Providers>
-            <Navbar />
-            <main className=" my-20">{children}</main>
-            <Footer />
-          </Providers>
-        </FilterProvider>
+        <Providers>
+          <Navbar />
+          <main className="my-20">{children}</main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

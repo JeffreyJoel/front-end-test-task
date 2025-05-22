@@ -5,7 +5,10 @@ import { Product } from "@/types/product";
 import Loader from "../shared/loader";
 import { useSignUp } from "@/hooks/auth/useSignUp";
 import { useUserBalance } from "@/hooks/web3/useUserBalance";
+import { useModal } from "@/contexts/modal-context";
+
 export default function Card({ product }: { product: Product }) {
+  const { showSignInModal } = useModal();
   const { data: usdcDecimals, isLoading: isUsdcDecimalsLoading } =
     useUsdcDecimals();
   const { isSignedUp } = useSignUp();
@@ -14,6 +17,14 @@ export default function Card({ product }: { product: Product }) {
     balance?.toString() ?? "0",
     usdcDecimals
   );
+
+  const handleBuy = () => {
+    if (!isSignedUp) {
+      showSignInModal();
+    } else {
+      console.log(product);
+    }
+  };
 
   return (
     <div
@@ -41,9 +52,7 @@ export default function Card({ product }: { product: Product }) {
             </p>
           )}
           <button
-            onClick={() => {
-              console.log(product);
-            }}
+            onClick={handleBuy}
             disabled={
               isSignedUp &&
               Number(processedUsdcBalance) < Number(product.priceUsdc)

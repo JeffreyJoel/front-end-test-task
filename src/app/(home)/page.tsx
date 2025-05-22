@@ -4,28 +4,84 @@ import ProductGrid from "@/components/products/product-grid";
 import FilterHeader from "@/components/products/filter-header";
 import { useState } from "react";
 import FilterSidebar from "@/components/products/filter-sidebar";
+import ActiveFilters from "@/components/products/active-filters";
+import { useProducts } from "@/hooks/products/useProducts";
+import { useFilter } from "@/contexts/filter-context";
+import { useUsdcDecimals } from "@/hooks/web3/useUsdcDecimals";
+import { useMemo } from "react";
+import { ethers } from "ethers";
 
 export default function Home() {
-  const [showFilters, setShowFilters] = useState(true);
+  const [showFilters, setShowFilters] = useState(false);
+  const { data: products, isLoading, error } = useProducts();
+  const { searchQuery, sortOrder, activeFilters } = useFilter();
+  const { data: usdcDecimals } = useUsdcDecimals();
+
+  const processedProducts = useMemo(() => {
+    if (!products || !usdcDecimals) return [];
+
+    let processed = products.map((product) => ({
+      ...product,
+      priceUsdc: Number(
+        ethers.formatUnits(product.priceUsdc, usdcDecimals)
+      ).toString(),
+    }));
+
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      processed = processed.filter((product) =>
+        product.name.toLowerCase().includes(query)
+      );
+    }
+
+    // This filters by active filters and excludes "All" and "For Sale". I assume all items are for sale.
+    if (
+      activeFilters.length > 0 &&
+      activeFilters[0] !== "All" &&
+      activeFilters[0] !== "For Sale"
+    ) {
+      processed = processed.filter((product) => {
+        return activeFilters.some((filter) => {
+          const filterLower = filter.toLowerCase();
+          return product.name.toLowerCase().includes(filterLower);
+        });
+      });
+    }
+
+    processed.sort((a, b) => {
+      const priceA = parseFloat(a.priceUsdc);
+      const priceB = parseFloat(b.priceUsdc);
+      return sortOrder === "low-to-high" ? priceA - priceB : priceB - priceA;
+    });
+
+    return processed;
+  }, [products, searchQuery, sortOrder, activeFilters, usdcDecimals]);
 
   return (
-    <div className="mx-auto 2xl:max-w-7xl xl:px-14 lg:px-12 px-4 py-8">
-      <h1 className="text-white text-4xl mb-6 font-extrabold font-montserrat">
-        Pokemon
-      </h1>
-      <FilterHeader
-        showFilters={showFilters}
-        onToggleFilters={() => setShowFilters(!showFilters)}
-      />
-      <div className="flex relative">
-        <FilterSidebar
+    <>
+      <div className="mx-auto 2xl:max-w-7xl xl:px-14 lg:px-8 px-4 py-8">
+        <h1 className="text-white text-4xl mb-6 font-extrabold font-montserrat">
+          Pokemon
+        </h1>
+        <FilterHeader
           showFilters={showFilters}
-          onClose={() => setShowFilters(false)}
+          onToggleFilters={() => setShowFilters(!showFilters)}
         />
-        <div className="w-full flex-1">
-          <ProductGrid />
+        <div className="flex relative">
+          <FilterSidebar
+            showFilters={showFilters}
+            onClose={() => setShowFilters(false)}
+          />
+          <div className="w-full mx-auto max-w-5xl flex-1 sm:px-6 md:px-8">
+            <ActiveFilters resultCount={processedProducts.length} />
+            <ProductGrid
+              products={processedProducts}
+              isLoading={isLoading}
+              error={error}
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

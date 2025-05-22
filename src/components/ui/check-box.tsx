@@ -19,7 +19,7 @@ export default function CheckBox({
         className={`w-4 h-4 rounded border flex items-center justify-center cursor-pointer ${
           checked
             ? "bg-[#8EC400] border-[#8EC400]"
-            : "border-zinc-600 bg-zinc-800"
+            : "border-[#302E2E] bg-background"
         }`}
         onClick={onChange}
       >

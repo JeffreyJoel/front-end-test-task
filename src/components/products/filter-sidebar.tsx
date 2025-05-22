@@ -7,6 +7,14 @@ import CheckBox from "../ui/check-box";
 import IconSearch from "../icons/iconSearch";
 import IconX from "../icons/iconX";
 import { useFilter } from "@/contexts/filter-context";
+import { 
+  setNames, 
+  cardNumbers, 
+  languages, 
+  years, 
+  graders, 
+  grades 
+} from "@/constants/filter-items";
 
 interface FilterSidebarProps {
   showFilters: boolean;
@@ -26,6 +34,10 @@ function FilterSidebar({ showFilters, onClose }: FilterSidebarProps) {
     cardType: false,
   });
 
+  const [searchQueries, setSearchQueries] = useState({
+    setName: ""
+  });
+
   const { activeFilters, setActiveFilters } = useFilter();
 
   const toggleSection = (section: keyof typeof openSections) => {
@@ -34,7 +46,7 @@ function FilterSidebar({ showFilters, onClose }: FilterSidebarProps) {
       [section]: !prev[section],
     }));
   };
-  
+
   const toggleFilter = (filter: string) => {
     setActiveFilters((prev: string[]) =>
       prev.includes(filter)
@@ -51,27 +63,43 @@ function FilterSidebar({ showFilters, onClose }: FilterSidebarProps) {
     onClose();
   };
 
+  const handleSearchChange = (
+    section: keyof typeof searchQueries,
+    value: string
+  ) => {
+    setSearchQueries((prev) => ({
+      ...prev,
+      [section]: value,
+    }));
+  };
+
+  const filteredSetNames = setNames.filter((set) =>
+    set.label.toLowerCase().includes(searchQueries.setName.toLowerCase())
+  );
+
+
   return (
     <>
-      {showFilters && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden" onClick={onClose} />
-      )}
-      
       <div
         className={`${
-          showFilters 
-            ? "fixed top-0 right-0 w-full h-full z-50 md:static md:block md:w-64" 
-            : "hidden md:block md:w-64"
-        } bg-background shrink-0 md:mt-8 flex flex-col`}
+          showFilters
+            ? "fixed top-0 right-0 w-full h-full z-50 md:relative md:h-auto"
+            : "hidden"
+        } bg-background shrink-0 md:w-64 flex flex-col`}
       >
         <div className="flex items-center justify-center md:justify-between p-6 md:p-0 md:mb-4 border-b border-[#302E2E] md:border-[#302E2E] md:pb-4">
           <div className="flex items-center gap-2">
             <IconFilter />
-            <span className="text-xl md:text-base font-medium text-white">Filters</span>
+            <span className="text-xl md:text-base font-medium text-white">
+              Filters
+            </span>
           </div>
           <button
-            className="absolute top-6 right-6 md:static md:top-auto md:right-auto h-6 w-6 flex items-center justify-center"
-            onClick={onClose}
+            className="cursor-pointer absolute top-6 right-6 md:static md:top-auto md:right-auto h-6 w-6 flex items-center justify-center"
+            onClick={() => {
+              onClose();
+              console.log("clicked");
+            }}
           >
             <IconX color="#9c9c9c" />
           </button>
@@ -83,7 +111,9 @@ function FilterSidebar({ showFilters, onClose }: FilterSidebarProps) {
               className="flex w-full items-center justify-between mb-4"
               onClick={() => toggleSection("status")}
             >
-              <span className="font-medium text-white text-lg md:text-base">Status</span>
+              <span className="font-medium text-white text-lg md:text-base">
+                Status
+              </span>
               <span
                 className={`flex items-center justify-center h-6 w-6 transition-transform ${
                   openSections.status ? "rotate-180" : ""
@@ -125,7 +155,9 @@ function FilterSidebar({ showFilters, onClose }: FilterSidebarProps) {
               className="flex w-full items-center justify-between mb-4"
               onClick={() => toggleSection("setName")}
             >
-              <span className="font-medium text-white text-lg md:text-base">Set Name</span>
+              <span className="font-medium text-white text-lg md:text-base">
+                Set Name
+              </span>
               <span
                 className={`flex items-center justify-center h-6 w-6 transition-transform ${
                   openSections.setName ? "rotate-180" : ""
@@ -136,58 +168,29 @@ function FilterSidebar({ showFilters, onClose }: FilterSidebarProps) {
             </button>
             {openSections.setName && (
               <div className="pt-2 space-y-2">
-                <div className="relative mb-2">
+                <div className="relative mb-4">
                   <div className="absolute inset-y-0 w-[32px] h-[32px] left-0 top-0 bottom-0 my-auto flex items-center pl-3 pointer-events-none">
                     <IconSearch color="#9c9c9c" />
                   </div>
                   <input
-                    className="w-full pl-10 py-2 border bg-background text-white border-[#302E2E] rounded-lg focus:outline-none focus:ring-1 focus:ring-[#F5A600] focus:border-transparent placeholder:text-sm"
+                    className="w-11/12 mx-auto pl-12 py-2 border bg-background text-white border-[#302E2E] rounded-lg focus:outline-none focus:ring-1 focus:ring-[#F5A600] focus:border-transparent placeholder:text-sm"
                     placeholder="Search Set Name"
+                    value={searchQueries.setName}
+                    onChange={(e) =>
+                      handleSearchChange("setName", e.target.value)
+                    }
                   />
                 </div>
                 <div className="space-y-4">
-                  <CheckBox
-                    id="pokemon151"
-                    label="Pokemon 151"
-                    checked={activeFilters.includes("Pokemon 151")}
-                    onChange={() => toggleFilter("Pokemon 151")}
-                  />
-                  <CheckBox
-                    id="legendary"
-                    label="Legendary Collection"
-                    checked={activeFilters.includes("Legendary Collection")}
-                    onChange={() => toggleFilter("Legendary Collection")}
-                  />
-                  <CheckBox
-                    id="scarlet"
-                    label="Scarlet & Violet"
-                    checked={activeFilters.includes("Scarlet & Violet")}
-                    onChange={() => toggleFilter("Scarlet & Violet")}
-                  />
-                  <CheckBox
-                    id="shinystar"
-                    label="Shiny Star V"
-                    checked={activeFilters.includes("Shiny Star V")}
-                    onChange={() => toggleFilter("Shiny Star V")}
-                  />
-                  <CheckBox
-                    id="teamrocket"
-                    label="Team Rocket Returns"
-                    checked={activeFilters.includes("Team Rocket Returns")}
-                    onChange={() => toggleFilter("Team Rocket Returns")}
-                  />
-                  <CheckBox
-                    id="tagteam"
-                    label="Tag Team GX: Tag All Stars"
-                    checked={activeFilters.includes("Tag Team GX: Tag All Stars")}
-                    onChange={() => toggleFilter("Tag Team GX: Tag All Stars")}
-                  />
-                  <CheckBox
-                    id="vmax"
-                    label="VMAX Climax"
-                    checked={activeFilters.includes("VMAX Climax")}
-                    onChange={() => toggleFilter("VMAX Climax")}
-                  />
+                  {filteredSetNames.map((set) => (
+                    <CheckBox
+                      key={set.id}
+                      id={set.id}
+                      label={set.label}
+                      checked={activeFilters.includes(set.label)}
+                      onChange={() => toggleFilter(set.label)}
+                    />
+                  ))}
                 </div>
               </div>
             )}
@@ -198,7 +201,9 @@ function FilterSidebar({ showFilters, onClose }: FilterSidebarProps) {
               className="flex w-full items-center justify-between mb-4"
               onClick={() => toggleSection("language")}
             >
-              <span className="font-medium text-white text-lg md:text-base">Language</span>
+              <span className="font-medium text-white text-lg md:text-base">
+                Language
+              </span>
               <span
                 className={`flex items-center justify-center h-6 w-6 transition-transform ${
                   openSections.language ? "rotate-180" : ""
@@ -209,18 +214,15 @@ function FilterSidebar({ showFilters, onClose }: FilterSidebarProps) {
             </button>
             {openSections.language && (
               <div className="pt-2 space-y-4">
-                <CheckBox
-                  id="japanese"
-                  label="Japanese"
-                  checked={activeFilters.includes("Japanese")}
-                  onChange={() => toggleFilter("Japanese")}
-                />
-                <CheckBox
-                  id="english"
-                  label="English"
-                  checked={activeFilters.includes("English")}
-                  onChange={() => toggleFilter("English")}
-                />
+                {languages.map((lang) => (
+                  <CheckBox
+                    key={lang.id}
+                    id={lang.id}
+                    label={lang.label}
+                    checked={activeFilters.includes(lang.label)}
+                    onChange={() => toggleFilter(lang.label)}
+                  />
+                ))}
               </div>
             )}
           </div>
@@ -230,7 +232,9 @@ function FilterSidebar({ showFilters, onClose }: FilterSidebarProps) {
               className="flex w-full items-center justify-between mb-4"
               onClick={() => toggleSection("year")}
             >
-              <span className="font-medium text-white text-lg md:text-base">Year</span>
+              <span className="font-medium text-white text-lg md:text-base">
+                Year
+              </span>
               <span
                 className={`flex items-center justify-center h-6 w-6 transition-transform ${
                   openSections.year ? "rotate-180" : ""
@@ -241,18 +245,15 @@ function FilterSidebar({ showFilters, onClose }: FilterSidebarProps) {
             </button>
             {openSections.year && (
               <div className="pt-2 space-y-4">
-                <CheckBox
-                  id="2023"
-                  label="2023"
-                  checked={activeFilters.includes("2023")}
-                  onChange={() => toggleFilter("2023")}
-                />
-                <CheckBox
-                  id="2020"
-                  label="2020"
-                  checked={activeFilters.includes("2020")}
-                  onChange={() => toggleFilter("2020")}
-                />
+                {years.map((year) => (
+                  <CheckBox
+                    key={year.id}
+                    id={year.id}
+                    label={year.label}
+                    checked={activeFilters.includes(year.label)}
+                    onChange={() => toggleFilter(year.label)}
+                  />
+                ))}
               </div>
             )}
           </div>
@@ -262,7 +263,9 @@ function FilterSidebar({ showFilters, onClose }: FilterSidebarProps) {
               className="flex w-full items-center justify-between mb-4"
               onClick={() => toggleSection("grader")}
             >
-              <span className="font-medium text-white text-lg md:text-base">Grader</span>
+              <span className="font-medium text-white text-lg md:text-base">
+                Grader
+              </span>
               <span
                 className={`flex items-center justify-center h-6 w-6 transition-transform ${
                   openSections.grader ? "rotate-180" : ""
@@ -273,24 +276,15 @@ function FilterSidebar({ showFilters, onClose }: FilterSidebarProps) {
             </button>
             {openSections.grader && (
               <div className="pt-2 space-y-4">
-                <CheckBox
-                  id="psa"
-                  label="PSA"
-                  checked={activeFilters.includes("PSA")}
-                  onChange={() => toggleFilter("PSA")}
-                />
-                <CheckBox
-                  id="cgc"
-                  label="CGC"
-                  checked={activeFilters.includes("CGC")}
-                  onChange={() => toggleFilter("CGC")}
-                />
-                <CheckBox
-                  id="ags"
-                  label="AGS"
-                  checked={activeFilters.includes("AGS")}
-                  onChange={() => toggleFilter("AGS")}
-                />
+                {graders.map((grader) => (
+                  <CheckBox
+                    key={grader.id}
+                    id={grader.id}
+                    label={grader.label}
+                    checked={activeFilters.includes(grader.label)}
+                    onChange={() => toggleFilter(grader.label)}
+                  />
+                ))}
               </div>
             )}
           </div>
@@ -300,7 +294,9 @@ function FilterSidebar({ showFilters, onClose }: FilterSidebarProps) {
               className="flex w-full items-center justify-between mb-4"
               onClick={() => toggleSection("grade")}
             >
-              <span className="font-medium text-white text-lg md:text-base">Grade</span>
+              <span className="font-medium text-white text-lg md:text-base">
+                Grade
+              </span>
               <span
                 className={`flex items-center justify-center h-6 w-6 transition-transform ${
                   openSections.grade ? "rotate-180" : ""
@@ -311,38 +307,16 @@ function FilterSidebar({ showFilters, onClose }: FilterSidebarProps) {
             </button>
             {openSections.grade && (
               <div className="pt-2 space-y-4">
-                <CheckBox
-                  id="grade10"
-                  label="10"
-                  checked={activeFilters.includes("10")}
-                  onChange={() => toggleFilter("10")}
-                />
-                <CheckBox
-                  id="grade95"
-                  label="9.5"
-                  checked={activeFilters.includes("9.5")}
-                  onChange={() => toggleFilter("9.5")}
-                />
+                {grades.map((grade) => (
+                  <CheckBox
+                    key={grade.id}
+                    id={grade.id}
+                    label={grade.label}
+                    checked={activeFilters.includes(grade.label)}
+                    onChange={() => toggleFilter(grade.label)}
+                  />
+                ))}
               </div>
-            )}
-          </div>
-
-          <div className="border-b border-[#302E2E] py-6 md:py-4">
-            <button
-              className="flex w-full items-center justify-between mb-4"
-              onClick={() => toggleSection("edition")}
-            >
-              <span className="font-medium text-white text-lg md:text-base">Edition</span>
-              <span
-                className={`flex items-center justify-center h-6 w-6 transition-transform ${
-                  openSections.edition ? "rotate-180" : ""
-                }`}
-              >
-                <IconChevronDown color="#9c9c9c" />
-              </span>
-            </button>
-            {openSections.edition && (
-              <div className="pt-2">{/* Edition filter content */}</div>
             )}
           </div>
 
@@ -351,7 +325,9 @@ function FilterSidebar({ showFilters, onClose }: FilterSidebarProps) {
               className="flex w-full items-center justify-between mb-4"
               onClick={() => toggleSection("cardNumber")}
             >
-              <span className="font-medium text-white text-lg md:text-base">Card Number</span>
+              <span className="font-medium text-white text-lg md:text-base">
+                Card Number
+              </span>
               <span
                 className={`flex items-center justify-center h-6 w-6 transition-transform ${
                   openSections.cardNumber ? "rotate-180" : ""
@@ -361,41 +337,37 @@ function FilterSidebar({ showFilters, onClose }: FilterSidebarProps) {
               </span>
             </button>
             {openSections.cardNumber && (
-              <div className="pt-2">
-                <div className="pt-2 space-y-4">
+              <div className="pt-2 space-y-4">
+                {cardNumbers.map((card) => (
                   <CheckBox
-                    id="3"
-                    label="#3"
-                    checked={activeFilters.includes("#3")}
-                    onChange={() => toggleFilter("#3")}
+                    key={card.id}
+                    id={card.id}
+                    label={card.label}
+                    checked={activeFilters.includes(card.label)}
+                    onChange={() => toggleFilter(card.label)}
                   />
-                  <CheckBox
-                    id="14"
-                    label="#14"
-                    checked={activeFilters.includes("#14")}
-                    onChange={() => toggleFilter("#14")}
-                  />
-                  <CheckBox
-                    id="103"
-                    label="#103"
-                    checked={activeFilters.includes("#103")}
-                    onChange={() => toggleFilter("#103")}
-                  />
-                  <CheckBox
-                    id="150"
-                    label="#150"
-                    checked={activeFilters.includes("#150")}
-                    onChange={() => toggleFilter("#150")}
-                  />
-                  <CheckBox
-                    id="223"
-                    label="#223"
-                    checked={activeFilters.includes("#223")}
-                    onChange={() => toggleFilter("#223")}
-                  />
-                </div>
+                ))}
               </div>
             )}
+          </div>
+
+          <div className="border-b border-[#302E2E] py-6 md:py-4">
+            <button
+              className="flex w-full items-center justify-between mb-4"
+              onClick={() => toggleSection("edition")}
+            >
+              <span className="font-medium text-white text-lg md:text-base">
+                Edition
+              </span>
+              <span
+                className={`flex items-center justify-center h-6 w-6 transition-transform ${
+                  openSections.edition ? "rotate-180" : ""
+                }`}
+              >
+                <IconChevronDown color="#9c9c9c" />
+              </span>
+            </button>
+            {openSections.edition && <div className="pt-2"></div>}
           </div>
 
           <div className="border-b border-[#302E2E] py-6 md:py-4 mb-20 md:mb-4">
@@ -403,7 +375,9 @@ function FilterSidebar({ showFilters, onClose }: FilterSidebarProps) {
               className="flex w-full items-center justify-between mb-4"
               onClick={() => toggleSection("cardType")}
             >
-              <span className="font-medium text-white text-lg md:text-base">Card Type</span>
+              <span className="font-medium text-white text-lg md:text-base">
+                Card Type
+              </span>
               <span
                 className={`flex items-center justify-center h-6 w-6 transition-transform ${
                   openSections.cardType ? "rotate-180" : ""
@@ -412,9 +386,7 @@ function FilterSidebar({ showFilters, onClose }: FilterSidebarProps) {
                 <IconChevronDown color="#9c9c9c" />
               </span>
             </button>
-            {openSections.cardType && (
-              <div className="pt-2">{/* Card Type filter content */}</div>
-            )}
+            {openSections.cardType && <div className="pt-2"></div>}
           </div>
         </div>
 
