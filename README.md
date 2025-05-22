@@ -1,6 +1,23 @@
-## Front-End Test Task
+## Front-End Test Task Submission
 
-Welcome! This task is designed to simulate real work you’d be doing here.
+This is my submission for the Front-End Test Task:
+
+[Live link](https://front-end-test-task-henna.vercel.app)
+
+[Video demo](https://www.loom.com/share/2824845579374dbabc67c3c733fae701?sid=960661e8-84c0-49e4-bae3-c45c4e04bb80)
+
+### Notable Technical Implementation
+- Use of TanStack Query and React context to manage global state, to handle product filtering and user authentication
+- A modal system for authentication prompts
+
+### User Flow
+1. Users can browse through the available products in the catalog
+2. Each product displays its details including price and description
+3. **Important**: When attempting to make a purchase without being connected:
+   - A modal automatically appears
+   - The modal informs the user that they need to connect/login
+   - This simulates a realistic user experience similar to actual real-world usage.
+
 
 ### Tech Stack
 
