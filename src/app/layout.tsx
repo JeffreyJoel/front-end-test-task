@@ -1,12 +1,20 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Karla } from "next/font/google";
+import { Karla, Montserrat } from "next/font/google";
 import { Providers } from "@/components/providers";
 import "./globals.css";
 import Navbar from "@/components/shared/navbar";
 import Footer from "@/components/shared/footer";
+
 const karla = Karla({
-  variable: "--font-karla",
   subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+});
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -19,13 +27,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${karla.variable} antialiased dark bg-neutral-950`}
-      >
+    <html lang="en" className={karla.className}>
+      <body className="antialiased dark bg-neutral-950">
         <Providers>
           <Navbar />
-          <main className="my-20">{children}</main>
+          <main className=" my-20">{children}</main>
           <Footer />
         </Providers>
       </body>

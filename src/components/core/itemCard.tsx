@@ -1,3 +1,5 @@
+import { useUsdcDecimals } from "@/hooks/web3/useUsdcDecimals";
+import { ethers } from "ethers";
 import Image from "next/image";
 
 interface CardProps {
@@ -8,8 +10,9 @@ interface CardProps {
 }
 
 export default function Card({ id, name, priceUsdc, imageUrl }: CardProps) {
-  const price = (Number(priceUsdc) / 1000000).toFixed(2);
-
+ 
+  const usdcDecimals = useUsdcDecimals();
+  const price = ethers.formatUnits(priceUsdc, usdcDecimals.data);
   return (
     <div
       key={id}
@@ -24,7 +27,18 @@ export default function Card({ id, name, priceUsdc, imageUrl }: CardProps) {
       />
       <div className="p-4">
         <h3 className="text-white text-base font-light mb-4">{name}</h3>
-        <p className="text-2xl font-bold text-white">${price}</p>
+        <div className="flex items-center justify-between">
+          <p className="text-2xl font-bold text-white">${price}</p>
+          <button
+            onClick={() => {
+              console.log();
+            }}
+            className="
+           cursor-pointer bg-beezie-yellow hover:bg-beezie-yellow/80 font-semibold text-black lg:px-6 px-4 py-2 rounded-xl"
+          >
+            Buy
+          </button>
+        </div>
       </div>
     </div>
   );
