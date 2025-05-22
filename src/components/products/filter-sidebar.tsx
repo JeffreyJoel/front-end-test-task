@@ -98,7 +98,6 @@ function FilterSidebar({ showFilters, onClose }: FilterSidebarProps) {
             className="cursor-pointer absolute top-6 right-6 md:static md:top-auto md:right-auto h-6 w-6 flex items-center justify-center"
             onClick={() => {
               onClose();
-              console.log("clicked");
             }}
           >
             <IconX color="#9c9c9c" />
