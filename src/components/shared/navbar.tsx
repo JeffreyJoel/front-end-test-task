@@ -23,7 +23,7 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="w-full fixed top-0 left-0 z-60 bg-background px-14 py-4">
+      <div className="w-full fixed top-0 left-0 z-50 bg-background px-14 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-8">
             <Link href="/">

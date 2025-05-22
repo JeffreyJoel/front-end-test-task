@@ -82,7 +82,7 @@ function FilterSidebar({ showFilters, onClose }: FilterSidebarProps) {
       <div
         className={`${
           showFilters
-            ? "fixed top-0 right-0 w-full h-full z-50 md:relative md:h-auto"
+            ? "fixed top-0 right-0 w-full h-full md:z-10 z-50 md:relative md:h-auto"
             : "hidden"
         } bg-background shrink-0 md:w-64 flex flex-col`}
       >
