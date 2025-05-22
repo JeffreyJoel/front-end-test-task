@@ -22,7 +22,7 @@ export default function Card({ product }: { product: Product }) {
     if (!isSignedUp) {
       showSignInModal();
     } else {
-      console.log(product);
+      console.log(`${product.id}:`, product);
     }
   };
 
