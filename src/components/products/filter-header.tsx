@@ -7,6 +7,7 @@ import IconSearch from "../icons/iconSearch";
 import { useFilter } from "@/contexts/filter-context";
 import { useDebounce } from "@/hooks/useDebounce";
 import IconDownUp from "../icons/iconDownUp";
+import IconArrowLeft from "../icons/iconArrowLeft";
 interface FilterHeaderProps {
   showFilters: boolean;
   onToggleFilters: () => void;
@@ -38,7 +39,7 @@ export default function FilterHeader({
 
         <div className="relative flex-1">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <IconSearch color="#9c9c9c" />
+            <IconSearch color="#9c9c9c" className="w-4 h-4" />
           </div>
           <input
             className="w-full pl-10 py-2  border bg-background text-white border-[#302E2E] rounded-lg focus:outline-none focus:ring-1 focus:ring-[#F5A600] focus:border-transparent placeholder:text-sm"
@@ -46,6 +47,9 @@ export default function FilterHeader({
             value={localSearchQuery}
             onChange={(e) => setLocalSearchQuery(e.target.value)}
           />
+          <div className="bg-transparent absolute inset-y-0 right-0 border border-l-[#302E2E] border-transparent flex items-center px-3 py-0 pointer-events-none">
+            <IconArrowLeft color="#fff" />
+          </div>
         </div>
 
         <div className="relative">

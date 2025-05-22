@@ -15,6 +15,7 @@ const karla = Karla({
 
 const montserrat = Montserrat({
   subsets: ["latin"],
+  variable: "--font-montserrat",
   display: "swap",
   weight: ["400", "500", "600", "700"],
 });
@@ -29,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={karla.className}>
+    <html lang="en" className={`${karla.className} ${montserrat.variable}`}>
       <body className="antialiased dark bg-neutral-950">
         <Providers>
           <Navbar />

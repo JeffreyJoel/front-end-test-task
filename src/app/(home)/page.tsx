@@ -12,7 +12,7 @@ import { useMemo } from "react";
 import { ethers } from "ethers";
 
 export default function Home() {
-  const [showFilters, setShowFilters] = useState(false);
+  const [showFilters, setShowFilters] = useState(true);
   const { data: products, isLoading, error } = useProducts();
   const { searchQuery, sortOrder, activeFilters } = useFilter();
   const { data: usdcDecimals } = useUsdcDecimals();
@@ -35,17 +35,19 @@ export default function Home() {
     }
 
     // This filters by active filters and excludes "All" and "For Sale". I assume all items are for sale.
-    if (
-      activeFilters.length > 0 &&
-      activeFilters[0] !== "All" &&
-      activeFilters[0] !== "For Sale"
-    ) {
-      processed = processed.filter((product) => {
-        return activeFilters.some((filter) => {
-          const filterLower = filter.toLowerCase();
-          return product.name.toLowerCase().includes(filterLower);
+    if (activeFilters.length > 0) {
+      const actualFilters = activeFilters.filter(
+        (filter) => filter !== "All" && filter !== "For Sale"
+      );
+
+      if (actualFilters.length > 0) {
+        processed = processed.filter((product) => {
+          return actualFilters.some((filter) => {
+            const filterLower = filter.toLowerCase();
+            return product.name.toLowerCase().includes(filterLower);
+          });
         });
-      });
+      }
     }
 
     processed.sort((a, b) => {
@@ -60,7 +62,7 @@ export default function Home() {
   return (
     <>
       <div className="mx-auto 2xl:max-w-7xl xl:px-14 lg:px-8 px-4 py-8">
-        <h1 className="text-white text-4xl mb-6 font-extrabold font-montserrat">
+        <h1 className="text-white text-4xl mb-6 font-bold font-montserrat">
           Pokemon
         </h1>
         <FilterHeader

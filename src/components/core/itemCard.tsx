@@ -38,6 +38,7 @@ export default function Card({ product }: { product: Product }) {
           className="w-full h-auto min-h-full min-w-full rounded-[20px]"
           height={512}
           width={512}
+          priority
         />
       </div>
       <div className="p-4">
@@ -46,7 +47,7 @@ export default function Card({ product }: { product: Product }) {
           {isUsdcDecimalsLoading ? (
             <Loader height={4} width={4} />
           ) : (
-            <p className="text-2xl font-bold text-white">
+            <p className="text-2xl font-montserrat font-bold text-white">
               {" "}
               ${product.priceUsdc}{" "}
             </p>

@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="flex flex-col lg:flex-row lg:justify-between gap-12 lg:gap-8">
         <div className="flex flex-col gap-6 lg:gap-10 items-center">
           <Image
-            src="/images/logos/beezie-logo.png"
+            src="/logos/beezie.svg"
             alt="logo"
             width={200}
             height={87}

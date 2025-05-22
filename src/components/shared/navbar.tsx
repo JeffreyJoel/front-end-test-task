@@ -28,10 +28,11 @@ export default function Navbar() {
           <div className="flex items-center gap-8">
             <Link href="/">
               <Image
-                src="/images/logos/beezie-logo.png"
+                src="/logos/beezie.svg"
                 alt="logo"
                 width={94}
                 height={40}
+                priority
               />
             </Link>
             <div className="hidden lg:block">
