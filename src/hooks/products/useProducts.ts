@@ -1,7 +1,6 @@
 import { Product } from "@/types/product";
 import { useQuery } from "@tanstack/react-query";
 
-
 async function fetchProducts(): Promise<Product[]> {
   const response = await fetch("/api/products");
   if (!response.ok) {
@@ -15,4 +14,4 @@ export function useProducts() {
     queryKey: ["products"],
     queryFn: fetchProducts,
   });
-} 
+}

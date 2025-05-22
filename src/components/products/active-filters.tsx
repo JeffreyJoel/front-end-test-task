@@ -21,12 +21,15 @@ export default function ActiveFilters({ resultCount }: ActiveFiltersProps) {
   );
 
   if (displayableFilters.length === 0) {
-    return <div className="ext-base font-light text-[#9c9c9c] mb-4">{resultCount} Results</div>;
+    return (
+      <div className="ext-base font-light text-[#9c9c9c] mb-4">
+        {resultCount} Results
+      </div>
+    );
   }
 
   return (
     <div className="mb-4">
-     
       <div className="flex flex-wrap gap-2 items-center">
         {displayableFilters.map((filter) => (
           <button
@@ -45,7 +48,9 @@ export default function ActiveFilters({ resultCount }: ActiveFiltersProps) {
           Clear All
         </button>
       </div>
-      <div className="text-base font-light text-[#9c9c9c] mt-4 mb-0">{resultCount} Results</div>
+      <div className="text-base font-light text-[#9c9c9c] mt-4 mb-0">
+        {resultCount} Results
+      </div>
     </div>
   );
-} 
+}

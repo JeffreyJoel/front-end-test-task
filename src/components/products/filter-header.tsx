@@ -9,12 +9,10 @@ import { useDebounce } from "@/hooks/useDebounce";
 import IconDownUp from "../icons/iconDownUp";
 import IconArrowLeft from "../icons/iconArrowLeft";
 interface FilterHeaderProps {
-  showFilters: boolean;
   onToggleFilters: () => void;
 }
 
 export default function FilterHeader({
-  showFilters,
   onToggleFilters,
 }: FilterHeaderProps) {
   const [showSortDropdown, setShowSortDropdown] = useState(false);
@@ -42,7 +40,7 @@ export default function FilterHeader({
             <IconSearch color="#9c9c9c" className="w-4 h-4" />
           </div>
           <input
-            className="w-full pl-10 py-2  border bg-background text-white border-[#302E2E] rounded-lg focus:outline-none focus:ring-1 focus:ring-[#F5A600] focus:border-transparent placeholder:text-sm"
+            className="w-full px-10 py-2  border bg-background text-white border-[#302E2E] rounded-lg focus:outline-none focus:ring-1 focus:ring-[#F5A600] focus:border-transparent placeholder:text-sm"
             placeholder="Search by name, set name, or anything"
             value={localSearchQuery}
             onChange={(e) => setLocalSearchQuery(e.target.value)}

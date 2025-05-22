@@ -23,7 +23,7 @@ export default function CheckBox({
         }`}
         onClick={onChange}
       >
-        {checked && <IconCheck color="#000"/>}
+        {checked && <IconCheck color="#000" />}
       </div>
       <label
         htmlFor={id}

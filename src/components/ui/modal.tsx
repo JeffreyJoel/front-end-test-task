@@ -8,12 +8,20 @@ interface ModalProps {
   title?: string;
 }
 
-export default function Modal({ isOpen, onClose, children, title }: ModalProps) {
+export default function Modal({
+  isOpen,
+  onClose,
+  children,
+  title,
+}: ModalProps) {
   if (!isOpen) return null;
 
   return (
     <>
-      <div className="fixed inset-0 bg-black bg-opacity-50 z-50" onClick={onClose} />
+      <div
+        className="fixed inset-0 bg-black bg-opacity-50 z-50"
+        onClick={onClose}
+      />
       <div className="fixed inset-0 flex items-center justify-center z-50 px-4">
         <div className="bg-background rounded-2xl w-full max-w-md p-6 relative">
           <div className="flex items-center justify-between mb-6">
@@ -32,4 +40,4 @@ export default function Modal({ isOpen, onClose, children, title }: ModalProps) 
       </div>
     </>
   );
-} 
+}

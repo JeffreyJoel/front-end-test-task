@@ -49,7 +49,9 @@ export default function Footer() {
         <div className="order-3 lg:order-2">
           <div className="flex flex-col sm:flex-row justify-center items-center sm:items-start gap-8 lg:gap-16 text-center sm:text-left">
             <div>
-              <h3 className="text-gray-400 font-bold mb-4 text-sm sm:text-base">Colony</h3>
+              <h3 className="text-gray-400 font-bold mb-4 text-sm sm:text-base">
+                Colony
+              </h3>
               <ul className="space-y-3 font-bold">
                 <li>
                   <Link
@@ -78,7 +80,9 @@ export default function Footer() {
               </ul>
             </div>
             <div>
-              <h3 className="text-gray-400 font-bold mb-4 text-sm sm:text-base">Support</h3>
+              <h3 className="text-gray-400 font-bold mb-4 text-sm sm:text-base">
+                Support
+              </h3>
               <ul className="space-y-3 font-bold">
                 <li>
                   <Link

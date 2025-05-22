@@ -66,7 +66,6 @@ export default function Home() {
           Pokemon
         </h1>
         <FilterHeader
-          showFilters={showFilters}
           onToggleFilters={() => setShowFilters(!showFilters)}
         />
         <div className="flex relative">

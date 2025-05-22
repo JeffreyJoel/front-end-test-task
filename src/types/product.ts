@@ -10,4 +10,4 @@ export interface Product {
   grade: string;
   cardNumber: string;
   isForSale?: boolean;
-} 
+}

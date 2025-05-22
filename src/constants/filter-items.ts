@@ -36,4 +36,4 @@ export const graders = [
 export const grades = [
   { id: "grade10", label: "10" },
   { id: "grade95", label: "9.5" },
-]; 
+];

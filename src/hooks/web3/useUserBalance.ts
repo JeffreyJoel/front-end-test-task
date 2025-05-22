@@ -10,6 +10,6 @@ async function fetchUserBalance(): Promise<bigint> {
 export function useUserBalance() {
   return useQuery({
     queryKey: ["userBalance"],
-    queryFn: fetchUserBalance
+    queryFn: fetchUserBalance,
   });
-} 
+}

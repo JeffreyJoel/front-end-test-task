@@ -7,13 +7,13 @@ import CheckBox from "../ui/check-box";
 import IconSearch from "../icons/iconSearch";
 import IconX from "../icons/iconX";
 import { useFilter } from "@/contexts/filter-context";
-import { 
-  setNames, 
-  cardNumbers, 
-  languages, 
-  years, 
-  graders, 
-  grades 
+import {
+  setNames,
+  cardNumbers,
+  languages,
+  years,
+  graders,
+  grades,
 } from "@/constants/filter-items";
 
 interface FilterSidebarProps {
@@ -35,7 +35,7 @@ function FilterSidebar({ showFilters, onClose }: FilterSidebarProps) {
   });
 
   const [searchQueries, setSearchQueries] = useState({
-    setName: ""
+    setName: "",
   });
 
   const { activeFilters, setActiveFilters } = useFilter();
@@ -76,7 +76,6 @@ function FilterSidebar({ showFilters, onClose }: FilterSidebarProps) {
   const filteredSetNames = setNames.filter((set) =>
     set.label.toLowerCase().includes(searchQueries.setName.toLowerCase())
   );
-
 
   return (
     <>
