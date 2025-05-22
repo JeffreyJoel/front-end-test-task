@@ -7,7 +7,7 @@ This is my submission for the Front-End Test Task:
 [Video demo](https://www.loom.com/share/2824845579374dbabc67c3c733fae701?sid=960661e8-84c0-49e4-bae3-c45c4e04bb80)
 
 ### Notable Technical Implementation
-- Use of TanStack Query and React context to manage global state, to handle product filtering and user authentication
+- Use of TanStack Query and React context to manage global state: Handle product filtering and user authentication
 - A modal system for authentication prompts
 
 ### User Flow
