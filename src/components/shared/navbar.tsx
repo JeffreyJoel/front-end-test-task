@@ -8,8 +8,6 @@ import { useSignUp } from "@/hooks/auth/useSignUp";
 import Loader from "./loader";
 import { ethers } from "ethers";
 import { useUsdcDecimals } from "@/hooks/web3/useUsdcDecimals";
-import SignInModal from "../auth/sign-in-modal";
-import { useState, useEffect } from "react";
 
 export default function Navbar() {
   const { data: balance, isLoading } = useUserBalance();

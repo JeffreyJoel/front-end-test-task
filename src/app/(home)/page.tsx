@@ -2,7 +2,7 @@
 
 import ProductGrid from "@/components/products/product-grid";
 import FilterHeader from "@/components/products/filter-header";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FilterSidebar from "@/components/products/filter-sidebar";
 import ActiveFilters from "@/components/products/active-filters";
 import { useProducts } from "@/hooks/products/useProducts";
@@ -10,9 +10,19 @@ import { useFilter } from "@/contexts/filter-context";
 import { useUsdcDecimals } from "@/hooks/web3/useUsdcDecimals";
 import { useMemo } from "react";
 import { ethers } from "ethers";
+import { useWindowSize } from "@/hooks/useWindowSize";
 
 export default function Home() {
-  const [showFilters, setShowFilters] = useState(true);
+  const { width } = useWindowSize();
+  const [showFilters, setShowFilters] = useState(width ? width >= 768 : false);
+  
+  // Update showFilters when window size changes
+  useEffect(() => {
+    if (width) {
+      setShowFilters(width >= 768);
+    }
+  }, [width]);
+
   const { data: products, isLoading, error } = useProducts();
   const { searchQuery, sortOrder, activeFilters } = useFilter();
   const { data: usdcDecimals } = useUsdcDecimals();
