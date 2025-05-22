@@ -3,54 +3,58 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="px-14 py-20 border-t border-[#302E2E]">
-      <div className="flex justify-between">
-        <div className="flex flex-col gap-10 items-center">
+    <footer className="px-4 sm:px-8 lg:px-14 py-12 lg:py-20 border-t border-[#302E2E]">
+      <div className="flex flex-col lg:flex-row lg:justify-between gap-12 lg:gap-8">
+        <div className="flex flex-col gap-6 lg:gap-10 items-center">
           <Image
             src="/images/logos/beezie-logo.png"
             alt="logo"
-            width={230}
-            height={100}
+            width={200}
+            height={87}
+            className="w-48 sm:w-56 lg:w-[230px] h-auto"
             priority
           />
 
-          <div className="flex items-center gap-10">
-            <span>
+          <div className="flex items-center gap-6 lg:gap-10">
+            <span className="cursor-pointer hover:opacity-80 transition-opacity">
               <Image
                 src="/icons/IconX.png"
                 alt="twitter"
                 width={24}
                 height={24}
+                className="w-5 h-5 sm:w-6 sm:h-6"
               />
             </span>
-            <span>
+            <span className="cursor-pointer hover:opacity-80 transition-opacity">
               <Image
                 src="/icons/IconInstagram.png"
                 alt="instagram"
                 width={24}
                 height={24}
+                className="w-5 h-5 sm:w-6 sm:h-6"
               />
             </span>
-            <span>
+            <span className="cursor-pointer hover:opacity-80 transition-opacity">
               <Image
                 src="/icons/IconDiscord.png"
                 alt="discord"
                 width={24}
                 height={24}
+                className="w-5 h-5 sm:w-6 sm:h-6"
               />
             </span>
           </div>
         </div>
 
-        <div>
-          <div className="grid grid-cols-2 gap-8">
+        <div className="order-3 lg:order-2">
+          <div className="flex flex-col sm:flex-row justify-center items-center sm:items-start gap-8 lg:gap-16 text-center sm:text-left">
             <div>
-              <h3 className="text-gray-400 font-bold mb-4">Colony</h3>
-              <ul className=" space-y-3 font-bold">
+              <h3 className="text-gray-400 font-bold mb-4 text-sm sm:text-base">Colony</h3>
+              <ul className="space-y-3 font-bold">
                 <li>
                   <Link
                     href="#"
-                    className="text-white hover:text-beezie-yellow transition-colors"
+                    className="text-white hover:text-beezie-yellow transition-colors text-sm sm:text-base"
                   >
                     Home
                   </Link>
@@ -58,7 +62,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="#"
-                    className="text-white hover:text-beezie-yellow transition-colors"
+                    className="text-white hover:text-beezie-yellow transition-colors text-sm sm:text-base"
                   >
                     About
                   </Link>
@@ -66,7 +70,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="#"
-                    className="text-white hover:text-beezie-yellow transition-colors"
+                    className="text-white hover:text-beezie-yellow transition-colors text-sm sm:text-base"
                   >
                     Team
                   </Link>
@@ -74,12 +78,12 @@ export default function Footer() {
               </ul>
             </div>
             <div>
-              <h3 className="text-gray-400 font-bold mb-4">Support</h3>
-              <ul className=" space-y-3 font-bold">
+              <h3 className="text-gray-400 font-bold mb-4 text-sm sm:text-base">Support</h3>
+              <ul className="space-y-3 font-bold">
                 <li>
                   <Link
                     href="#"
-                    className="text-white hover:text-beezie-yellow transition-colors"
+                    className="text-white hover:text-beezie-yellow transition-colors text-sm sm:text-base"
                   >
                     Documentation
                   </Link>
@@ -87,7 +91,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="#"
-                    className="text-white hover:text-beezie-yellow transition-colors"
+                    className="text-white hover:text-beezie-yellow transition-colors text-sm sm:text-base"
                   >
                     Contact
                   </Link>
@@ -95,7 +99,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="#"
-                    className="text-white hover:text-beezie-yellow transition-colors"
+                    className="text-white hover:text-beezie-yellow transition-colors text-sm sm:text-base"
                   >
                     Terms of Service
                   </Link>
@@ -103,7 +107,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="#"
-                    className="text-white hover:text-beezie-yellow transition-colors"
+                    className="text-white hover:text-beezie-yellow transition-colors text-sm sm:text-base"
                   >
                     Privacy
                   </Link>
@@ -113,11 +117,11 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className=" flex flex-col gap-4 items-center">
-          <h2 className="text-[26px] text-white font-semibold mb-4">
+        <div className="flex flex-col gap-4 items-center text-center order-2 lg:order-3">
+          <h2 className="text-lg sm:text-xl lg:text-[26px] text-white font-semibold mb-2 lg:mb-4 max-w-xs lg:max-w-none">
             Sign up to join our beta access
           </h2>
-          <button className="bg-beezie-yellow text-black px-11 py-3 rounded-[10px] font-medium cursor-pointer hover:bg-[#E5A534] transition-colors">
+          <button className="bg-beezie-yellow text-black px-6 sm:px-8 lg:px-11 py-2.5 sm:py-3 rounded-[10px] font-medium cursor-pointer hover:bg-[#E5A534] transition-colors text-sm sm:text-base w-full sm:w-auto max-w-xs">
             Join now
           </button>
         </div>

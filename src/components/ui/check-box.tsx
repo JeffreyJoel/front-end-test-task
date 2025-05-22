@@ -18,16 +18,16 @@ export default function CheckBox({
       <div
         className={`w-4 h-4 rounded border flex items-center justify-center cursor-pointer ${
           checked
-            ? "bg-green-500 border-green-500"
+            ? "bg-[#8EC400] border-[#8EC400]"
             : "border-zinc-600 bg-zinc-800"
         }`}
         onClick={onChange}
       >
-        {checked && <IconCheck/>}
+        {checked && <IconCheck color="#000"/>}
       </div>
       <label
         htmlFor={id}
-        className="text-sm font-medium leading-none cursor-pointer"
+        className="text-lg font-medium leading-none cursor-pointer"
         onClick={onChange}
       >
         {label}

@@ -1,4 +1,9 @@
-export default function IconX() {
+
+interface IconXProps {
+  color?: string;
+}
+
+export default function IconX({ color }: IconXProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -6,7 +11,7 @@ export default function IconX() {
       height="24"
       viewBox="0 0 24 24"
       fill="none"
-      stroke="currentColor"
+      stroke={color || "white"}
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"

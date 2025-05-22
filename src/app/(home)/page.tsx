@@ -9,15 +9,15 @@ export default function Home() {
   const [showFilters, setShowFilters] = useState(true);
 
   return (
-    <div className="mx-auto lg:px-14 px-4 py-8">
-      <h1 className="text-white text-4xl mb-6 font-bold font-montserrat">
+    <div className="mx-auto 2xl:max-w-7xl xl:px-14 lg:px-12 px-4 py-8">
+      <h1 className="text-white text-4xl mb-6 font-extrabold font-montserrat">
         Pokemon
       </h1>
       <FilterHeader
         showFilters={showFilters}
         onToggleFilters={() => setShowFilters(!showFilters)}
       />
-      <div className="flex">
+      <div className="flex relative">
         <FilterSidebar
           showFilters={showFilters}
           onClose={() => setShowFilters(false)}

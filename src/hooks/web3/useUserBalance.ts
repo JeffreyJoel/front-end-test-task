@@ -3,9 +3,9 @@ import { usdcContract } from "@/services/web3/contracts";
 import { addresses } from "@/constants/addresses";
 import { ethers } from "ethers";
 
-async function fetchUserBalance(): Promise<string> {
+async function fetchUserBalance(): Promise<bigint> {
   const balance = await usdcContract.balanceOf(addresses.user);
-  return ethers.formatUnits(balance, 6);
+  return balance;
 }
 
 export function useUserBalance() {
