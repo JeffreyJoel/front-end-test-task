@@ -66,7 +66,7 @@ export default function FilterHeader({
             </span>
           </button>
           {showSortDropdown && (
-            <div className="absolute right-0 mt-1 w-full bg-background border border-[#302E2E] rounded-lg shadow-lg z-10">
+            <div className="absolute z-10 min-w-[200px] right-0 mt-2 text-base px-4 py-2 bg-background border border-[#302E2E] rounded-md shadow-lg overflow-y-auto">
               <div
                 className="px-4 py-2 hover:bg-zinc-800 cursor-pointer"
                 onClick={() => {
